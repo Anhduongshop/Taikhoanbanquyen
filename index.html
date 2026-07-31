@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AnhDuongShop - Nâng Cấp Bản Quyền & Dịch Vụ Số Uy Tín</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+                        mono: ['SF Mono', 'Menlo', 'Monaco', 'Courier New', 'monospace']
+                    },
+                    colors: {
+                        appleBg: '#f8fafc',
+                        appleCard: '#ffffff',
+                        appleBorder: 'rgba(0, 0, 0, 0.08)',
+                        adOrange: '#f97316',
+                        adAmber: '#f59e0b',
+                        adPurple: '#8b5cf6',
+                        adBlue: '#2563eb',
+                        adRed: '#e11d48',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Apple System Typography & Design System */
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f97316;
+        }
+
+        /* AnhDuongShop Premium Card Shadows */
+        .ad-card-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        .ad-card-shadow-hover {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .ad-card-shadow-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px -4px rgba(249, 115, 22, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+            border-color: rgba(249, 115, 22, 0.3);
+        }
+
+        .apple-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .btn-ad-primary {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+            transition: all 0.2s ease;
+        }
+        .btn-ad-primary:hover {
+            background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+        }
+        .btn-ad-primary:active {
+            transform: scale(0.97);
+        }
+
+        .qr-glow-box {
+            border: 2.5px solid #a855f7;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
+        }
+
+        .otp-display-box {
+            background: #0f172a;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.25);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .sun-glow {
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-orange-500 selection:text-white pb-8">
+
+    <!-- BAR THÔNG BÁO UY TÍN -->
+    <div class="bg-[#0f172a] text-white text-[11px] py-1.5 px-4 text-center font-medium flex items-center justify-center gap-2">
+        <span class="flex items-center gap-1 text-amber-400 font-bold">
+            <i class="fa-solid fa-sun text-amber-400 animate-spin" style="animation-duration: 10s;"></i> AnhDuongShop
+        </span>
+        <span class="text-slate-600">|</span>
+        <span>Cam kết nâng cấp bản quyền chính hãng 100%</span>
+        <span class="hidden sm:inline text-slate-600">|</span>
+        <span class="hidden sm:inline text-emerald-400 font-semibold"><i class="fa-solid fa-shield-check text-[10px]"></i> Bảo hành đủ hạn dùng</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-amber-300 font-bold"><i class="fa-solid fa-headset text-[10px]"></i> Zalo: 0393356100</span>
+    </div>
+
+    <!-- HEADER BRANDING ANHDUONGSHOP -->
+    <header class="sticky top-0 z-40 apple-glass border-b border-black/5 px-4 py-3">
+        <div class="max-w-6xl mx-auto flex items-center justify-between gap-2.5">
+            
+            <!-- Nút Back -->
+            <button id="headerBackBtn" onclick="handleHeaderBack()" class="p-2 text-slate-600 hover:text-slate-900 rounded-full bg-slate-100 border border-slate-200/80 hidden transition active:scale-95">
+                <i class="fa-solid fa-arrow-left text-xs"></i>
+            </button>
+
+            <!-- Brand Logo AnhDuongShop -->
+            <div id="brandLogo" class="flex items-center gap-2 cursor-pointer shrink-0" onclick="showCatalog()">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-orange-500 to-rose-500 flex items-center justify-center text-white text-base shadow-md sun-glow">
+                    <i class="fa-solid fa-sun"></i>
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="font-black text-base tracking-tight text-[#0f172a]">
+                        AnhDuong<span class="text-orange-600">shop</span>
+                    </span>
+                    <span class="text-[9px] text-slate-500 font-medium tracking-wider uppercase mt-0.5">Nâng Cấp Bản Quyền</span>
+                </div>
+            </div>
+
+            <!-- Search Bar Desktop -->
+            <div class="hidden md:flex flex-1 max-w-md mx-4 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <input type="text" id="searchInputDesktop" oninput="handleSearchDesktop()" placeholder="Tìm kiếm tài khoản YouTube, Netflix, Canva, AI..." 
+                    class="w-full bg-slate-100/90 border border-black/5 text-xs text-slate-900 pl-9 pr-4 py-2 rounded-full focus:outline-none focus:bg-white focus:ring-2 focus:ring-orange-500/30 transition">
+            </div>
+
+            <!-- Header Action Nav Buttons -->
+            <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                <!-- Tab Lấy Mã 2FA -->
+                <button id="nav2faBtn" onclick="show2faPage()" class="px-2.5 sm:px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1.5 hover:bg-emerald-100 transition active:scale-95 shrink-0">
+                    <i class="fa-solid fa-key text-emerald-600 text-[11px]"></i>
+                    <span>Lấy Mã 2FA</span>
+                </button>
+
+                <!-- Tab TikTok MP3 -->
+                <button id="navTiktokBtn" onclick="showTiktokPage()" class="px-2.5 sm:px-3 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-xs font-bold flex items-center gap-1.5 hover:bg-rose-100 transition active:scale-95 shrink-0">
+                    <i class="fa-brands fa-tiktok text-slate-900 text-[11px]"></i>
+                    <span>TikTok MP3</span>
+                </button>
+
+                <!-- Tab Cửa Hàng -->
+                <button id="navShopBtn" onclick="showCatalog()" class="hidden px-3 py-1.5 rounded-full bg-[#0f172a] text-white text-xs font-bold flex items-center gap-1.5 transition active:scale-95 shrink-0">
+                    <i class="fa-solid fa-store text-xs"></i>
+                    <span>Cửa Hàng</span>
+                </button>
+
+                <!-- CSKH Zalo -->
+                <button onclick="openCSKH()" class="px-2.5 sm:px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold flex items-center gap-1.5 hover:bg-amber-100 transition shrink-0">
+                    <i class="fa-solid fa-headset text-xs text-orange-600"></i>
+                    <span>CSKH</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- NỘI DUNG CHÍNH (ĐA THIẾT BỊ) -->
+    <main class="max-w-6xl mx-auto w-full px-4 py-5 flex-1">
+
+        <!-- ================= TAB 1: DANH MỤC SẢN PHẨM (CATALOG) ================= -->
+        <div id="catalogPage" class="space-y-5">
+            
+            <!-- Hero Banner AnhDuongShop -->
+            <div class="bg-gradient-to-r from-[#0f172a] via-slate-800 to-orange-950 rounded-3xl p-5 md:p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="space-y-1.5 max-w-xl">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/20 border border-orange-400/30 text-amber-300 text-xs font-bold backdrop-blur-md">
+                        <i class="fa-solid fa-certificate text-[10px]"></i> AnhDuongShop - Nâng Cấp Bản Quyền
+                    </div>
+                    <h1 class="text-xl md:text-3xl font-black tracking-tight text-white leading-tight">
+                        Tài Khoản Bản Quyền & Dịch Vụ Số Chính Hãng
+                    </h1>
+                    <p class="text-xs md:text-sm text-slate-300 font-normal leading-relaxed">
+                        Nâng cấp chính chủ Gmail siêu tốc, bảo hành 100% vĩnh viễn hạn sử dụng. Nhắn Zalo hỗ trợ kích hoạt: <span class="font-mono font-bold text-amber-300">0393356100</span>
+                    </p>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="flex items-center gap-3 pt-2 md:pt-0 border-t border-white/10 md:border-none">
+                    <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/10 text-center flex-1 md:flex-none min-w-[105px]">
+                        <span class="text-lg font-black text-amber-400 block">15.000+</span>
+                        <span class="text-[10px] text-slate-300">Khách tin dùng</span>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/10 text-center flex-1 md:flex-none min-w-[105px]">
+                        <span class="text-lg font-black text-emerald-400 block">1 ĐỔI 1</span>
+                        <span class="text-[10px] text-slate-300">Bảo hành uy tín</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tìm Kiếm Mobile & Bộ Lọc -->
+            <div class="space-y-3">
+                <div class="md:hidden relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text" id="searchInputMobile" oninput="handleSearchMobile()" placeholder="Tìm kiếm tài khoản YouTube, Netflix, AI..." 
+                        class="w-full bg-white border border-slate-200 text-xs text-slate-900 pl-9 pr-4 py-2.5 rounded-xl focus:outline-none focus:border-orange-500 shadow-sm placeholder-slate-400">
+                </div>
+
+                <!-- Chips Danh Mục -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar text-xs font-bold">
+                    <button onclick="filterCategory('ALL')" class="cat-btn active border px-4 py-2 rounded-full whitespace-nowrap transition bg-[#0f172a] text-white border-[#0f172a]">Tất cả sản phẩm</button>
+                    <button onclick="filterCategory('AI')" class="cat-btn border border-slate-200 bg-white text-slate-700 px-4 py-2 rounded-full whitespace-nowrap hover:border-slate-300">Trợ Lý AI</button>
+                    <button onclick="filterCategory('Giải Trí')" class="cat-btn border border-slate-200 bg-white text-slate-700 px-4 py-2 rounded-full whitespace-nowrap hover:border-slate-300">Phim & Nhạc</button>
+                    <button onclick="filterCategory('Đồ Họa')" class="cat-btn border border-slate-200 bg-white text-slate-700 px-4 py-2 rounded-full whitespace-nowrap hover:border-slate-300">Đồ Họa & Video</button>
+                    <button onclick="filterCategory('Văn Phòng')" class="cat-btn border border-slate-200 bg-white text-slate-700 px-4 py-2 rounded-full whitespace-nowrap hover:border-slate-300">Văn Phòng & Work</button>
+                </div>
+            </div>
+
+            <!-- Lưới Sản Phẩm Co Giãn Flex (Mobile: 2 Cột | Tablet: 3 Cột | PC: 4 Cột) -->
+            <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-4"></div>
+        </div>
+
+        <!-- ================= TAB 2: TRÌNH LẤY MÃ 2FA TỰ ĐỘNG ================= -->
+        <div id="2faPage" class="hidden space-y-4 max-w-xl mx-auto">
+            <div class="bg-white border border-slate-200 rounded-3xl p-5 ad-card-shadow text-center space-y-2">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center text-2xl mx-auto shadow-sm">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-extrabold text-[#0f172a]">Trình Lấy Mã 2FA Tự Động (Authenticator)</h2>
+                    <p class="text-xs text-slate-500 mt-1">Hỗ trợ lấy mã xác thực 2 lớp cho Facebook, Gmail, Hotmail, Instagram...</p>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-3xl p-5 space-y-4 ad-card-shadow">
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="text-xs font-bold text-slate-700">Khóa bí mật 2FA (Secret Key):</label>
+                        <button onclick="pasteClipboardTo2FA()" class="text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg font-bold flex items-center gap-1 active:scale-95 transition">
+                            <i class="fa-solid fa-paste text-[10px]"></i> Dán nhanh
+                        </button>
+                    </div>
+
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="twoFaSecretInput" placeholder="Ví dụ: JBSWY3DPEHPK3PXP" oninput="handle2FAInputChanged()"
+                            class="w-full bg-slate-50 border border-slate-200 text-xs text-slate-900 pl-9 pr-8 py-3 rounded-xl focus:outline-none focus:border-emerald-500 focus:bg-white font-mono uppercase font-bold tracking-wider">
+                        <button onclick="clear2faInput()" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                            <i class="fa-solid fa-circle-xmark text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button onclick="generate2FACodeManual()" class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 active:scale-98 text-white font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 shadow-md transition">
+                    <i class="fa-solid fa-bolt text-amber-300"></i>
+                    <span>LẤY MÃ OTP 2FA NGAY</span>
+                </button>
+
+                <div class="text-center pt-1">
+                    <button onclick="loadSample2FA()" class="text-xs text-slate-500 hover:text-emerald-600 font-medium underline">
+                        Bấm vào đây để dùng thử mã Khóa mẫu
+                    </button>
+                </div>
+            </div>
+
+            <!-- Khung Mã OTP 2FA To Rõ Nổi Bật -->
+            <div id="otpResultContainer" class="hidden space-y-3">
+                <div class="otp-display-box rounded-3xl p-6 text-center text-white space-y-4">
+                    <span class="bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                        <i class="fa-solid fa-shield-check"></i> Mã OTP Đang Hoạt Động
+                    </span>
+
+                    <div>
+                        <div id="otpCodeDisplay" class="font-mono text-4xl sm:text-5xl font-black tracking-widest text-amber-300 py-1">
+                            ------
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">Bấm nút bên dưới để sao chép 1 chạm</p>
+                    </div>
+
+                    <button onclick="copy2FACode()" class="w-full py-3.5 px-4 bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-black text-xs sm:text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg transition">
+                        <i class="fa-solid fa-copy text-base"></i>
+                        <span id="copy2faBtnText">SAO CHÉP MÃ 2FA</span>
+                    </button>
+
+                    <div class="space-y-1.5 pt-1">
+                        <div class="flex justify-between items-center text-xs text-slate-300 font-medium">
+                            <span>Tự động đổi mã mới sau:</span>
+                            <span id="timerText" class="font-mono font-bold text-amber-300">30s</span>
+                        </div>
+                        <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700">
+                            <div id="timerProgressBar" class="bg-emerald-400 h-full w-full transition-all duration-1000 ease-linear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 3: CHI TIẾT SẢN PHẨM ================= -->
+        <div id="detailPage" class="hidden space-y-4 max-w-2xl mx-auto">
+            <div class="bg-white border border-slate-200 rounded-3xl p-5 md:p-6 ad-card-shadow">
+                <div class="flex items-start justify-between gap-3 mb-4">
+                    <div class="flex items-center gap-3">
+                        <div id="detailIcon" class="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-sm"></div>
+                        <div>
+                            <h1 id="detailTitle" class="text-lg font-bold text-slate-900 leading-tight">--</h1>
+                            <p id="detailSubtitle" class="text-xs text-slate-500 mt-0.5">AnhDuongShop Nâng cấp chính chủ - Bảo hành 100%</p>
+                        </div>
+                    </div>
+                    <span id="detailStock" class="bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shrink-0">
+                        <i class="fa-solid fa-circle-check text-[10px]"></i> Sẵn kho
+                    </span>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="text-xs font-bold text-slate-700">Gmail nâng cấp gói:</label>
+                            <button onclick="pasteClipboardToEmail()" class="text-[11px] text-orange-600 bg-orange-50 border border-orange-200 px-2.5 py-1 rounded-lg font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-paste text-[10px]"></i> Dán nhanh Gmail
+                            </button>
+                        </div>
+                        <div class="relative">
+                            <i class="fa-regular fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="email" id="targetEmail" placeholder="Ví dụ: myemail@gmail.com"
+                                class="w-full bg-slate-50 border border-slate-200 text-xs text-slate-900 pl-9 pr-3 py-3 rounded-xl focus:outline-none focus:border-orange-500 focus:bg-white font-medium">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <label class="block text-xs font-bold text-slate-700 mb-2">Chọn thời hạn đăng ký:</label>
+                    <div id="plansContainer" class="space-y-2"></div>
+                </div>
+
+                <button onclick="goToPaymentPage()" class="w-full mt-6 py-3.5 px-4 rounded-xl btn-ad-primary font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md">
+                    <i class="fa-solid fa-bolt text-amber-300"></i>
+                    <span>TIẾN HÀNH THANH TOÁN VIETQR</span>
+                </button>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-3xl p-5 space-y-3 ad-card-shadow">
+                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-cat text-orange-600"></i>
+                    <span id="featuresTitle">Đặc quyền dịch vụ</span>
+                </h3>
+                <div id="featuresList" class="space-y-2 text-xs text-slate-600"></div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 4: THANH TOÁN VIETQR (TPBANK LE ANH DUONG) ================= -->
+        <div id="paymentPage" class="hidden space-y-4 max-w-md mx-auto">
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-2.5 text-center flex items-center justify-between text-xs text-amber-800">
+                <span class="font-medium flex items-center gap-1.5">
+                    <i class="fa-solid fa-clock animate-pulse text-amber-600"></i> Mã QR có hiệu lực trong:
+                </span>
+                <span id="paymentTimer" class="font-mono font-extrabold text-orange-600 bg-white px-2 py-0.5 rounded-lg border border-amber-300">09:59</span>
+            </div>
+
+            <!-- Khung Mã VietQR TPBank -->
+            <div class="bg-white rounded-3xl p-5 text-center max-w-[290px] mx-auto qr-glow-box relative">
+                <div class="flex items-center justify-center mb-1">
+                    <span class="font-extrabold text-red-600 text-lg tracking-tight flex items-center">
+                        <span class="text-red-600">Viet</span><span class="text-blue-600">QR</span>
+                    </span>
+                </div>
+
+                <div class="p-1 bg-white rounded-xl">
+                    <img id="vietQrImg" src="" alt="Mã QR Thanh Toán TPBank" class="w-full h-auto max-w-[220px] mx-auto object-contain rounded-lg">
+                </div>
+
+                <div class="flex items-center justify-center gap-2 pt-2 mt-1 border-t border-slate-100 text-[11px] font-bold text-slate-700">
+                    <span class="text-blue-800 italic font-black">napas<span class="text-orange-500">247</span></span>
+                    <span class="text-slate-300">|</span>
+                    <span class="text-purple-700 font-extrabold flex items-center gap-1">
+                        <i class="fa-solid fa-building-columns text-xs"></i> TPBank
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-2 max-w-xs mx-auto">
+                <button onclick="toggleBankSelector()" class="flex-1 py-2.5 px-3 bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 shadow-sm">
+                    <span>Chuyển bằng App Ngân Hàng ▾</span>
+                </button>
+            </div>
+
+            <div class="max-w-xs mx-auto space-y-2">
+                <button id="confirmPayBtn" onclick="simulatePaymentSuccess()" class="w-full py-3 px-4 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-2 shadow">
+                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                    <span>Tôi Đã Chuyển Khoản</span>
+                </button>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-2.5 flex items-center justify-center gap-2 text-xs text-slate-600 shadow-sm">
+                    <div class="w-3.5 h-3.5 border-2 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+                    <span class="font-semibold text-[11px] text-slate-700">Đang quét giao dịch TPBank tự động...</span>
+                </div>
+            </div>
+
+            <!-- Khung Thông tin TPBank LE ANH DUONG -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 space-y-3 max-w-xs mx-auto ad-card-shadow">
+                <div class="bg-purple-50/60 p-2.5 rounded-xl border border-purple-100 text-xs space-y-1">
+                    <div class="flex justify-between items-center text-slate-600"><span>Ngân hàng:</span><span class="font-bold text-purple-900">TPBank (Tiên Phong)</span></div>
+                    <div class="flex justify-between items-center text-slate-600"><span>Chủ tài khoản:</span><span class="font-extrabold text-purple-700 uppercase">LE ANH DUONG</span></div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-[11px] font-bold text-slate-500">Số tài khoản TPBank</label>
+                    <div class="flex items-center justify-between bg-slate-50 p-2 rounded-xl border border-slate-200">
+                        <span id="displayAccountNo" class="font-mono font-extrabold text-slate-900 text-sm">0393356100</span>
+                        <button onclick="copyText('0393356100', 'Số tài khoản TPBank')" class="px-2.5 py-1 bg-white border border-slate-200 text-slate-700 rounded-lg text-xs font-bold">Copy</button>
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-[11px] font-bold text-slate-500">Nội dung chuyển khoản</label>
+                    <div class="flex items-center justify-between bg-amber-50 p-2 rounded-xl border border-amber-200">
+                        <span id="displayContent" class="font-mono font-black text-purple-700 text-sm">zgmkf599z</span>
+                        <button onclick="copyText(document.getElementById('displayContent').innerText, 'Nội dung')" class="px-2.5 py-1 bg-purple-700 text-white rounded-lg text-xs font-bold">Copy</button>
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-[11px] font-bold text-slate-500">Số tiền chuyển khoản</label>
+                    <div class="flex items-center justify-between bg-slate-50 p-2 rounded-xl border border-slate-200">
+                        <span id="displayAmount" class="font-mono font-black text-emerald-600 text-sm">275.000 VNĐ</span>
+                        <button onclick="copyText(rawPriceAmount, 'Số tiền')" class="px-2.5 py-1 bg-white border border-slate-200 text-slate-700 rounded-lg text-xs font-bold">Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 5: MÀN HÌNH THANH TOÁN THÀNH CÔNG ================= -->
+        <div id="successPage" class="hidden max-w-sm mx-auto text-center space-y-4 py-4">
+            <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full mx-auto flex items-center justify-center text-2xl border border-emerald-300 shadow-md animate-bounce">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            
+            <div class="space-y-1">
+                <h2 class="text-lg font-extrabold text-slate-900">THANH TOÁN THÀNH CÔNG!</h2>
+                <p class="text-xs text-slate-500">AnhDuongShop đã xác nhận số tiền chuyển khoản của bạn.</p>
+            </div>
+
+            <div id="manualDeliveryBox" class="hidden bg-blue-50 border-2 border-blue-400 rounded-3xl p-5 text-center space-y-3 ad-card-shadow">
+                <div class="w-10 h-10 bg-blue-600 text-white rounded-2xl mx-auto flex items-center justify-center text-lg font-bold">Z</div>
+                <div class="space-y-1">
+                    <h3 class="text-sm font-extrabold text-blue-900">Yêu Cầu Nâng Cấp Qua Zalo</h3>
+                    <p class="text-xs text-blue-700">Vui lòng bấm nút bên dưới để nhắn tin Zalo cho admin kích hoạt ngay lập tức!</p>
+                </div>
+                <a id="zaloActionBtn" href="https://zalo.me/0393356100" target="_blank" class="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs rounded-xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition">
+                    <i class="fa-solid fa-comment-dots text-sm"></i>
+                    <span>NHẮN ZALO 0393356100 ĐỂ NÂNG CẤP NGAY</span>
+                </a>
+            </div>
+
+            <div id="autoDeliveryBox" class="hidden bg-emerald-50 border-2 border-emerald-400 rounded-3xl p-5 text-left space-y-3 ad-card-shadow">
+                <h3 class="text-xs font-bold text-emerald-900 uppercase flex items-center gap-1.5"><i class="fa-solid fa-key"></i> Tài khoản của bạn:</h3>
+                <div class="bg-white p-3 rounded-xl border border-emerald-200 font-mono text-xs text-slate-800">
+                    <p id="autoAccountContent" class="select-all font-bold text-slate-900">--</p>
+                </div>
+                <button onclick="copyText(document.getElementById('autoAccountContent').innerText, 'Thông tin tài khoản')" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1">
+                    <i class="fa-regular fa-copy"></i> Sao chép thông tin
+                </button>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 text-left space-y-2 text-xs text-slate-600 ad-card-shadow">
+                <div class="flex justify-between border-b border-slate-100 pb-2"><span>Mã đơn:</span><span id="successOrderCode" class="font-mono font-bold text-orange-600">--</span></div>
+                <div class="flex justify-between border-b border-slate-100 pb-2"><span>Gmail khách:</span><span id="successEmail" class="font-bold text-slate-800 truncate max-w-[150px]">--</span></div>
+                <div class="flex justify-between"><span>Sản phẩm:</span><span id="successPlan" class="font-bold text-slate-900 truncate max-w-[150px]">--</span></div>
+            </div>
+
+            <button onclick="showCatalog()" class="w-full py-3 bg-[#0f172a] text-white font-bold text-xs rounded-xl shadow">Quay Lại Trang Chủ</button>
+        </div>
+
+        <!-- ================= TAB 6: TẢI NHẠC TIKTOK ================= -->
+        <div id="tiktokPage" class="hidden space-y-4 max-w-xl mx-auto">
+            <div class="bg-white border border-slate-200 rounded-3xl p-5 space-y-3 ad-card-shadow">
+                <span class="text-xs font-extrabold text-rose-600 uppercase flex items-center gap-1.5">
+                    <i class="fa-brands fa-tiktok text-slate-900"></i> TikMP3 Downloader
+                </span>
+                <textarea id="tiktokUrls" rows="4" placeholder="Dán các đường link TikTok vào đây (mỗi link 1 dòng)..."
+                    class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 font-mono resize-none"></textarea>
+                <button onclick="startBatchProcessing()" class="w-full py-3 bg-[#0f172a] text-white font-extrabold rounded-xl text-xs flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-bolt text-amber-400"></i> PHÂN TÍCH LINK TIKTOK
+                </button>
+            </div>
+            <div id="resultsList" class="space-y-3"></div>
+        </div>
+
+    </main>
+
+    <!-- LIVE SOCIAL PROOF TICKER ANHDUONGSHOP -->
+    <div id="liveOrderTicker" class="fixed bottom-4 left-4 z-40 bg-[#0f172a] text-white p-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 max-w-[280px] text-xs transition-all transform duration-500 translate-y-28 opacity-0">
+        <div class="w-8 h-8 rounded-full bg-orange-600 flex items-center justify-center text-white shrink-0 font-bold">
+            <i class="fa-solid fa-sun text-xs"></i>
+        </div>
+        <div class="overflow-hidden">
+            <p id="tickerUser" class="font-bold text-slate-100 truncate">Khách 098****234</p>
+            <p id="tickerAction" class="text-[11px] text-amber-300 font-medium truncate">Vừa nâng cấp YouTube Premium 12T - AnhDuongShop</p>
+        </div>
+    </div>
+
+    <!-- MODAL BANK SELECTOR -->
+    <div id="bankSelectorModal" class="fixed inset-0 z-50 backdrop-blur-custom hidden flex items-center justify-center p-4" onclick="closeBankSelector()">
+        <div class="bg-white text-slate-900 w-full max-w-xs rounded-2xl shadow-2xl border border-slate-200 overflow-hidden" onclick="event.stopPropagation()">
+            <div class="p-3 border-b border-slate-100 font-bold text-xs flex items-center justify-between">
+                <span>Chọn App Ngân Hàng Trên Máy</span>
+                <button onclick="closeBankSelector()"><i class="fa-solid fa-xmark text-sm"></i></button>
+            </div>
+            <div class="max-h-72 overflow-y-auto divide-y divide-slate-100 text-xs font-semibold">
+                <button onclick="launchBankApp('tpbank')" class="w-full text-left px-4 py-3 hover:bg-slate-50 flex items-center justify-between text-purple-700">
+                    <span>TPBank (Tiên Phong)</span><span class="text-[10px] bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full font-bold">Mở App</span>
+                </button>
+                <button onclick="launchBankApp('vietcombank')" class="w-full text-left px-4 py-3 hover:bg-slate-50 flex items-center justify-between text-emerald-700">
+                    <span>Vietcombank</span><span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">Mở App</span>
+                </button>
+                <button onclick="launchBankApp('techcombank')" class="w-full text-left px-4 py-3 hover:bg-slate-50 flex items-center justify-between text-rose-700">
+                    <span>Techcombank</span><span class="text-[10px] bg-rose-100 text-rose-800 px-2 py-0.5 rounded-full font-bold">Mở App</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CSKH -->
+    <div id="cskhModal" class="fixed inset-0 z-50 backdrop-blur-custom hidden flex items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 w-full max-w-xs rounded-2xl p-5 relative text-center space-y-4 shadow-2xl">
+            <button onclick="closeCSKH()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-800 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-2xl mx-auto flex items-center justify-center text-2xl border border-orange-100"><i class="fa-solid fa-headset"></i></div>
+            <div>
+                <h3 class="text-base font-bold text-slate-900">AnhDuongShop Support 24/7</h3>
+                <p class="text-xs text-slate-500 mt-1">SĐT Zalo Hỗ Trợ: <span class="font-bold text-orange-600">0393356100</span></p>
+            </div>
+            <a href="https://zalo.me/0393356100" target="_blank" class="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow">
+                <i class="fa-solid fa-comment-dots"></i> Nhắn Zalo Support Ngay
+            </a>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 hidden bg-[#0f172a] text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toastMsg">Thông báo!</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC INTEGRATED -->
+    <script>
+        const GOOGLE_SHEET_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+        // CẤU HÌNH NGÂN HÀNG TPBANK CỦA LE ANH DUONG
+        const BANK_CONFIG = {
+            bankCode: 'TPB',
+            bankBin: '970423',
+            accountNo: '0393356100',
+            accountOwner: 'LE ANH DUONG'
+        };
+
+        let PRODUCTS = [
+            {
+                id: 'youtube-premium',
+                title: 'YouTube Premium',
+                category: 'Giải Trí',
+                deliveryType: 'MANUAL',
+                icon: '<i class="fa-brands fa-youtube text-white"></i>',
+                iconBg: 'bg-rose-600',
+                badgeText: 'BÁN CHẠY NHẤT',
+                badgeStyle: 'bg-rose-600 text-white',
+                desc: 'Nâng cấp chính chủ Gmail, phát trong nền và YouTube Music...',
+                stock: 12,
+                plans: [
+                    { id: 'yt-6m', name: 'Gói 6 Tháng', price: 175000, oldPrice: 200000 },
+                    { id: 'yt-12m', name: 'Gói 12 Tháng', price: 275000, oldPrice: 350000, isPopular: true }
+                ],
+                features: ['Nâng cấp chính chủ Gmail cá nhân', 'Xem video không quảng cáo', 'Phát nhạc trong nền khi tắt màn hình', 'Bảo hành full thời gian sử dụng']
+            },
+            {
+                id: 'netflix-premium',
+                title: 'Netflix Premium 4K',
+                category: 'Giải Trí',
+                deliveryType: 'AUTO',
+                autoAccount: 'TK: netflix_vip_anhduong01@gmail.com | MK: Anhduong2026 | Profile: 3 (PIN: 8888)',
+                icon: '<span class="font-black text-rose-600 text-2xl">N</span>',
+                iconBg: 'bg-slate-900 border border-slate-800',
+                badgeText: 'CẤP TỰ ĐỘNG',
+                badgeStyle: 'bg-emerald-600 text-white',
+                desc: 'Tài khoản dùng riêng Profile, chuẩn Ultra HD 4K...',
+                stock: 8,
+                plans: [
+                    { id: 'nf-1m', name: 'Gói 1 Tháng 4K', price: 85000, oldPrice: 110000 },
+                    { id: 'nf-3m', name: 'Gói 3 Tháng 4K', price: 235000, oldPrice: 300000, isPopular: true }
+                ],
+                features: ['Chất lượng Ultra HD (4K + HDR)', 'Profile riêng tư khóa PIN', 'Cấp tài khoản ngay sau khi thanh toán']
+            },
+            {
+                id: 'canva-pro',
+                title: 'Canva Pro Chính Chủ',
+                category: 'Đồ Họa',
+                deliveryType: 'MANUAL',
+                icon: '<i class="fa-solid fa-palette text-white"></i>',
+                iconBg: 'bg-gradient-to-tr from-cyan-500 to-purple-600',
+                badgeText: 'HOT CHOICE',
+                badgeStyle: 'bg-orange-600 text-white',
+                desc: 'Mở khóa 100+ triệu mẫu thiết kế, tách nền AI tự động...',
+                stock: 20,
+                plans: [
+                    { id: 'cv-12m', name: 'Gói 12 Tháng Pro', price: 180000, oldPrice: 300000, isPopular: true }
+                ],
+                features: ['Nâng chính chủ Gmail cá nhân', 'Mở khóa ảnh Pro & mẫu thiết kế', 'Lưu trữ 1000GB Cloud']
+            },
+            {
+                id: 'office-365',
+                title: 'Microsoft 365 + 1TB',
+                category: 'Văn Phòng',
+                deliveryType: 'AUTO',
+                autoAccount: 'Link kích hoạt Microsoft 365: https://anhduongshop.com/active-key/ms365-pro-9921',
+                icon: '<i class="fa-solid fa-windows text-amber-500"></i>',
+                iconBg: 'bg-slate-900',
+                badgeText: 'OFFICE VIP',
+                badgeStyle: 'bg-slate-900 text-white',
+                desc: 'Trọn bộ Word, Excel, PowerPoint bản quyền + 1TB OneDrive...',
+                stock: 15,
+                plans: [
+                    { id: 'ms-12m', name: 'Gói 12 Tháng Bản Quyền', price: 250000, oldPrice: 450000, isPopular: true }
+                ],
+                features: ['Sử dụng trên 5 thiết bị', 'Dung lượng 1TB OneDrive an toàn', 'Bản quyền gia hạn chính hãng']
+            }
+        ];
+
+        let currentProduct = null;
+        let selectedPlan = null;
+        let currentTransferCode = 'zgmkf599z';
+        let rawPriceAmount = 275000;
+        let activePage = 'catalog';
+
+        // 2FA TOTP STATE
+        let current2FaCode = '';
+        let twoFaInterval = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCatalog(PRODUCTS);
+            startLiveOrderTicker();
+            const savedEmail = localStorage.getItem('mxh_user_email');
+            if (savedEmail) document.getElementById('targetEmail').value = savedEmail;
+        });
+
+        // SEARCH HANDLERS
+        function handleSearchMobile() {
+            const query = document.getElementById('searchInputMobile').value.toLowerCase().trim();
+            renderCatalog(PRODUCTS.filter(p => p.title.toLowerCase().includes(query)));
+        }
+        function handleSearchDesktop() {
+            const query = document.getElementById('searchInputDesktop').value.toLowerCase().trim();
+            renderCatalog(PRODUCTS.filter(p => p.title.toLowerCase().includes(query)));
+        }
+
+        // 2FA TOTP GENERATOR ENGINE
+        async function generateTOTP(secretKey) {
+            try {
+                let secret = secretKey.replace(/[\s\=-]/g, '').toUpperCase();
+                if (!secret) return null;
+
+                const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+                let bits = "";
+                for (let i = 0; i < secret.length; i++) {
+                    const val = alphabet.indexOf(secret[i]);
+                    if (val === -1) continue;
+                    bits += val.toString(2).padStart(5, "0");
+                }
+                const keyBytes = new Uint8Array(Math.floor(bits.length / 8));
+                for (let i = 0; i < keyBytes.length; i++) {
+                    keyBytes[i] = parseInt(bits.substr(i * 8, 8), 2);
+                }
+
+                const time = Math.floor(Math.floor(Date.now() / 1000) / 30);
+                const timeBuffer = new ArrayBuffer(8);
+                const timeView = new DataView(timeBuffer);
+                timeView.setUint32(4, time, false);
+
+                const cryptoKey = await crypto.subtle.importKey(
+                    "raw", keyBytes, { name: "HMAC", hash: "SHA-1" }, false, ["sign"]
+                );
+                const signature = await crypto.subtle.sign("HMAC", cryptoKey, timeBuffer);
+                const signatureView = new DataView(signature);
+
+                const offset = signatureView.getUint8(signature.byteLength - 1) & 0xf;
+                const binary = ((signatureView.getUint32(offset) & 0x7fffffff) % 1000000).toString();
+                return binary.padStart(6, '0');
+            } catch (e) { return null; }
+        }
+
+        async function pasteClipboardTo2FA() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text && text.trim().length >= 10) {
+                    document.getElementById('twoFaSecretInput').value = text.trim().toUpperCase();
+                    showToast('Đã dán Khóa 2FA thành công!');
+                    generate2FACodeManual();
+                } else { showToast('Bộ nhớ tạm không chứa Khóa 2FA!', true); }
+            } catch (err) { showToast('Vui lòng tự dán Khóa 2FA.', true); }
+        }
+
+        function clear2faInput() {
+            document.getElementById('twoFaSecretInput').value = '';
+            document.getElementById('otpResultContainer').classList.add('hidden');
+            if (twoFaInterval) clearInterval(twoFaInterval);
+        }
+
+        function loadSample2FA() {
+            document.getElementById('twoFaSecretInput').value = "JBSWY3DPEHPK3PXP";
+            generate2FACodeManual();
+            showToast('Đã nạp Khóa mẫu 2FA!');
+        }
+
+        function handle2FAInputChanged() {
+            const val = document.getElementById('twoFaSecretInput').value.trim();
+            if (val.length >= 10) generate2FACodeManual();
+        }
+
+        async function generate2FACodeManual() {
+            const secret = document.getElementById('twoFaSecretInput').value.trim();
+            if (!secret) {
+                showToast('Vui lòng nhập Khóa 2FA!', true);
+                document.getElementById('twoFaSecretInput').focus();
+                return;
+            }
+
+            const code = await generateTOTP(secret);
+            if (!code) {
+                showToast('Khóa 2FA không hợp lệ!', true);
+                return;
+            }
+
+            current2FaCode = code;
+            document.getElementById('otpCodeDisplay').innerText = `${code.substr(0, 3)} ${code.substr(3, 3)}`;
+            document.getElementById('otpResultContainer').classList.remove('hidden');
+
+            start2FATimerLoop(secret);
+            showToast('Đã tạo mã OTP 2FA mới!');
+        }
+
+        function start2FATimerLoop(secret) {
+            if (twoFaInterval) clearInterval(twoFaInterval);
+
+            async function updateTimer() {
+                const epoch = Math.floor(Date.now() / 1000);
+                const remainingSecs = 30 - (epoch % 30);
+
+                document.getElementById('timerText').innerText = `${remainingSecs}s`;
+                document.getElementById('timerProgressBar').style.width = `${(remainingSecs / 30) * 100}%`;
+
+                if (remainingSecs === 30 || remainingSecs === 0) {
+                    const newCode = await generateTOTP(secret);
+                    if (newCode) {
+                        current2FaCode = newCode;
+                        document.getElementById('otpCodeDisplay').innerText = `${newCode.substr(0, 3)} ${newCode.substr(3, 3)}`;
+                    }
+                }
+            }
+            updateTimer();
+            twoFaInterval = setInterval(updateTimer, 1000);
+        }
+
+        function copy2FACode() {
+            if (!current2FaCode) return;
+            navigator.clipboard.writeText(current2FaCode);
+            document.getElementById('copy2faBtnText').innerText = "ĐÃ SAO CHÉP MÃ!";
+            showToast(`Đã sao chép mã OTP: ${current2FaCode}`);
+            setTimeout(() => { document.getElementById('copy2faBtnText').innerText = "SAO CHÉP MÃ 2FA"; }, 2000);
+        }
+
+        // SOCIAL PROOF TICKER ANHDUONGSHOP
+        function startLiveOrderTicker() {
+            const fakeOrders = [
+                { name: 'Khách 097****112', item: 'YouTube Premium 12T - AnhDuongShop' },
+                { name: 'Khách 090****889', item: 'Canva Pro Chính Chủ' },
+                { name: 'Khách 034****567', item: 'Netflix Premium 4K' },
+                { name: 'Khách 086****321', item: 'Microsoft 365 + 1TB' }
+            ];
+
+            let index = 0;
+            setInterval(() => {
+                const ticker = document.getElementById('liveOrderTicker');
+                const order = fakeOrders[index];
+
+                document.getElementById('tickerUser').innerText = order.name;
+                document.getElementById('tickerAction').innerText = `Vừa kích hoạt ${order.item}`;
+
+                ticker.classList.remove('translate-y-28', 'opacity-0');
+                ticker.classList.add('translate-y-0', 'opacity-100');
+
+                setTimeout(() => {
+                    ticker.classList.remove('translate-y-0', 'opacity-100');
+                    ticker.classList.add('translate-y-28', 'opacity-0');
+                }, 4000);
+
+                index = (index + 1) % fakeOrders.length;
+            }, 12000);
+        }
+
+        // SWITCH PAGES
+        function show2faPage() {
+            activePage = '2fa';
+            document.getElementById('catalogPage').classList.add('hidden');
+            document.getElementById('tiktokPage').classList.add('hidden');
+            document.getElementById('detailPage').classList.add('hidden');
+            document.getElementById('paymentPage').classList.add('hidden');
+            document.getElementById('successPage').classList.add('hidden');
+            document.getElementById('2faPage').classList.remove('hidden');
+
+            document.getElementById('nav2faBtn').classList.add('hidden');
+            document.getElementById('navTiktokBtn').classList.remove('hidden');
+            document.getElementById('navShopBtn').classList.remove('hidden');
+            document.getElementById('headerBackBtn').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showCatalog() {
+            activePage = 'catalog';
+            document.getElementById('2faPage').classList.add('hidden');
+            document.getElementById('tiktokPage').classList.add('hidden');
+            document.getElementById('detailPage').classList.add('hidden');
+            document.getElementById('paymentPage').classList.add('hidden');
+            document.getElementById('successPage').classList.add('hidden');
+            document.getElementById('catalogPage').classList.remove('hidden');
+
+            document.getElementById('nav2faBtn').classList.remove('hidden');
+            document.getElementById('navTiktokBtn').classList.remove('hidden');
+            document.getElementById('navShopBtn').classList.add('hidden');
+            document.getElementById('headerBackBtn').classList.add('hidden');
+            document.getElementById('brandLogo').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showTiktokPage() {
+            activePage = 'tiktok';
+            document.getElementById('catalogPage').classList.add('hidden');
+            document.getElementById('2faPage').classList.add('hidden');
+            document.getElementById('detailPage').classList.add('hidden');
+            document.getElementById('paymentPage').classList.add('hidden');
+            document.getElementById('successPage').classList.add('hidden');
+            document.getElementById('tiktokPage').classList.remove('hidden');
+
+            document.getElementById('nav2faBtn').classList.remove('hidden');
+            document.getElementById('navTiktokBtn').classList.add('hidden');
+            document.getElementById('navShopBtn').classList.remove('hidden');
+        }
+
+        function handleHeaderBack() {
+            if (activePage === 'payment') openProductDetail(currentProduct.id);
+            else showCatalog();
+        }
+
+        // CATALOG & PAYMENT LOGIC
+        function renderCatalog(items) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white border border-slate-200 rounded-2xl p-3.5 flex flex-col justify-between cursor-pointer ad-card-shadow ad-card-shadow-hover transition group relative";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-end mb-1.5">
+                            <span class="${item.badgeStyle} text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">${item.badgeText}</span>
+                        </div>
+                        <div class="flex justify-center mb-2.5">
+                            <div class="w-12 h-12 rounded-2xl ${item.iconBg} flex items-center justify-center text-xl shadow-sm">${item.icon}</div>
+                        </div>
+                        <h2 class="text-xs sm:text-sm font-extrabold text-slate-900 text-center leading-tight mb-1 group-hover:text-orange-600 transition">${item.title}</h2>
+                        <p class="text-[11px] text-slate-500 text-center line-clamp-2 leading-snug">${item.desc}</p>
+                    </div>
+                    <div class="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-[9px] text-slate-400 block font-medium">Giá chỉ</span>
+                            <span class="text-xs sm:text-sm font-black text-orange-600">${formatVND(item.plans[0].price)}</span>
+                        </div>
+                        <button onclick="event.stopPropagation(); quickBuy('${item.id}')" class="px-3 py-1.5 bg-[#0f172a] hover:bg-orange-600 text-white text-[11px] font-bold rounded-xl transition">Mua</button>
+                    </div>
+                `;
+                card.onclick = () => openProductDetail(item.id);
+                grid.appendChild(card);
+            });
+        }
+
+        function quickBuy(productId) {
+            openProductDetail(productId);
+            document.getElementById('targetEmail').focus();
+        }
+
+        async function pasteClipboardToEmail() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text && text.includes('@')) {
+                    document.getElementById('targetEmail').value = text.trim();
+                    showToast('Đã dán Gmail thành công!');
+                } else { showToast('Bộ nhớ tạm không chứa địa chỉ Gmail!', true); }
+            } catch (err) { showToast('Vui lòng tự gõ địa chỉ Gmail.', true); }
+        }
+
+        function openProductDetail(productId) {
+            currentProduct = PRODUCTS.find(p => p.id === productId);
+            if (!currentProduct) return;
+
+            activePage = 'detail';
+            document.getElementById('catalogPage').classList.add('hidden');
+            document.getElementById('2faPage').classList.add('hidden');
+            document.getElementById('tiktokPage').classList.add('hidden');
+            document.getElementById('paymentPage').classList.add('hidden');
+            document.getElementById('successPage').classList.add('hidden');
+            document.getElementById('detailPage').classList.remove('hidden');
+
+            document.getElementById('headerBackBtn').classList.remove('hidden');
+            document.getElementById('brandLogo').classList.add('hidden');
+
+            document.getElementById('detailTitle').innerText = currentProduct.title;
+            document.getElementById('detailSubtitle').innerText = currentProduct.desc;
+            document.getElementById('detailIcon').className = `w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-sm ${currentProduct.iconBg}`;
+            document.getElementById('detailIcon').innerHTML = currentProduct.icon;
+
+            selectedPlan = currentProduct.plans.find(p => p.isPopular) || currentProduct.plans[0];
+            const plansContainer = document.getElementById('plansContainer');
+            plansContainer.innerHTML = '';
+
+            currentProduct.plans.forEach(plan => {
+                const isSelected = selectedPlan.id === plan.id;
+                const planCard = document.createElement('div');
+                planCard.className = `p-3.5 rounded-xl border cursor-pointer transition-all relative ${isSelected ? 'bg-orange-50/60 border-orange-500' : 'bg-slate-50 border-slate-200'}`;
+                planCard.onclick = () => { selectedPlan = plan; openProductDetail(currentProduct.id); };
+                planCard.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-xs text-slate-900">${plan.name}</span>
+                        <div class="text-right"><div class="text-xs font-black text-orange-600">${formatVND(plan.price)}</div></div>
+                    </div>
+                    ${isSelected ? `<i class="fa-solid fa-circle-check text-orange-600 absolute right-3 top-3.5 text-xs"></i>` : ''}
+                `;
+                plansContainer.appendChild(planCard);
+            });
+
+            const featuresList = document.getElementById('featuresList');
+            featuresList.innerHTML = '';
+            currentProduct.features.forEach(feat => {
+                const item = document.createElement('div');
+                item.className = "flex items-start gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100";
+                item.innerHTML = `<i class="fa-solid fa-check text-emerald-600 text-xs mt-0.5"></i> <span>${feat}</span>`;
+                featuresList.appendChild(item);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goToPaymentPage() {
+            const emailInput = document.getElementById('targetEmail').value.trim();
+            if (!emailInput || !emailInput.includes('@')) {
+                showToast('Vui lòng nhập chính xác địa chỉ Gmail!', true);
+                document.getElementById('targetEmail').focus();
+                return;
+            }
+
+            localStorage.setItem('mxh_user_email', emailInput);
+
+            activePage = 'payment';
+            document.getElementById('detailPage').classList.add('hidden');
+            document.getElementById('paymentPage').classList.remove('hidden');
+
+            document.getElementById('headerBackBtn').classList.remove('hidden');
+
+            currentTransferCode = 'zgmkf' + Math.floor(100 + Math.random() * 900) + 'z';
+            rawPriceAmount = selectedPlan.price;
+
+            document.getElementById('displayAccountNo').innerText = BANK_CONFIG.accountNo;
+            document.getElementById('displayContent').innerText = currentTransferCode;
+            document.getElementById('displayAmount').innerText = formatVND(rawPriceAmount);
+
+            // Tạo VietQR TPBank LE ANH DUONG
+            const qrUrl = `https://img.vietqr.io/image/${BANK_CONFIG.bankCode}-${BANK_CONFIG.accountNo}-compact2.png?amount=${rawPriceAmount}&addInfo=${currentTransferCode}&accountName=${encodeURIComponent(BANK_CONFIG.accountOwner)}`;
+            document.getElementById('vietQrImg').src = qrUrl;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function simulatePaymentSuccess() {
+            const emailInput = document.getElementById('targetEmail').value.trim();
+            showToast("Xác nhận thanh toán thành công! Đang lưu thông tin...");
+
+            const orderData = {
+                orderCode: currentTransferCode.toUpperCase(),
+                email: emailInput,
+                productName: currentProduct.title,
+                planName: selectedPlan.name,
+                amount: rawPriceAmount,
+                deliveryType: currentProduct.deliveryType
+            };
+
+            try {
+                if (GOOGLE_SHEET_SCRIPT_URL && !GOOGLE_SHEET_SCRIPT_URL.includes('YOUR_GOOGLE_APPS')) {
+                    fetch(GOOGLE_SHEET_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(orderData)
+                    });
+                }
+            } catch (err) { console.log(err); }
+
+            document.getElementById('paymentPage').classList.add('hidden');
+            document.getElementById('successPage').classList.remove('hidden');
+
+            document.getElementById('successOrderCode').innerText = orderData.orderCode;
+            document.getElementById('successEmail').innerText = orderData.email;
+            document.getElementById('successPlan').innerText = `${orderData.productName} (${orderData.planName})`;
+
+            const manualBox = document.getElementById('manualDeliveryBox');
+            const autoBox = document.getElementById('autoDeliveryBox');
+
+            if (currentProduct.deliveryType === 'MANUAL') {
+                manualBox.classList.remove('hidden');
+                autoBox.classList.add('hidden');
+                const prefilledText = encodeURIComponent(`Chào AnhDuongShop, tôi đã thanh toán đơn ${orderData.orderCode} cho Gmail ${orderData.email} (${orderData.productName}). Hỗ trợ nâng cấp giúp tôi!`);
+                document.getElementById('zaloActionBtn').href = `https://zalo.me/0393356100?text=${prefilledText}`;
+            } else {
+                manualBox.classList.add('hidden');
+                autoBox.classList.remove('hidden');
+                document.getElementById('autoAccountContent').innerText = currentProduct.autoAccount || 'Liên hệ Zalo để nhận thông tin';
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function launchBankApp(bankKey) {
+            closeBankSelector();
+            showToast(`Đang mở App ${bankKey.toUpperCase()}...`);
+            const vietQrDeeplink = `https://dl.vietqr.io/pay?app=${bankKey}&ba=${BANK_CONFIG.accountNo}&bin=${BANK_CONFIG.bankBin}&am=${rawPriceAmount}&tn=${currentTransferCode}`;
+            setTimeout(() => { window.location.href = vietQrDeeplink; }, 300);
+        }
+
+        function toggleBankSelector() { document.getElementById('bankSelectorModal').classList.remove('hidden'); }
+        function closeBankSelector() { document.getElementById('bankSelectorModal').classList.add('hidden'); }
+        function openCSKH() { document.getElementById('cskhModal').classList.remove('hidden'); }
+        function closeCSKH() { document.getElementById('cskhModal').classList.add('hidden'); }
+
+        function copyText(text, label) {
+            navigator.clipboard.writeText(text);
+            showToast(`Đã sao chép ${label}!`);
+        }
+
+        function filterCategory(cat) {
+            showCatalog();
+            if (cat === 'ALL') renderCatalog(PRODUCTS);
+            else renderCatalog(PRODUCTS.filter(p => p.category === cat || p.title.includes(cat)));
+        }
+
+        function formatVND(number) { return new Intl.NumberFormat('vi-VN').format(number) + ' VNĐ'; }
+
+        function showToast(msg, isError = false) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 3000);
+        }
+    </script>
+</body>
+</html>
+
