@@ -411,14 +411,14 @@
             </div>
 
             <div class="max-w-xs mx-auto space-y-2">
-                <button id="confirmPayBtn" onclick="simulatePaymentSuccess()" class="w-full py-3 px-4 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-2 shadow">
+                <button id="confirmPayBtn" onclick="openPaymentZaloModal()" class="w-full py-3 px-4 rounded-xl bg-[#0f172a] hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-2 shadow">
                     <i class="fa-solid fa-circle-check text-emerald-400"></i>
                     <span>Tôi Đã Chuyển Khoản</span>
                 </button>
 
                 <div class="bg-white border border-slate-200 rounded-xl p-2.5 flex items-center justify-center gap-2 text-xs text-slate-600 shadow-sm">
                     <div class="w-3.5 h-3.5 border-2 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
-                    <span class="font-semibold text-[11px] text-slate-700">Đang quét giao dịch TPBank tự động...</span>
+                    <span class="font-semibold text-[11px] text-slate-700">Sau khi chuyển khoản, bấm nút trên để nhắn Zalo xác nhận.</span>
                 </div>
             </div>
 
@@ -546,6 +546,47 @@
         </div>
     </div>
 
+    <!-- MODAL XÁC NHẬN CHUYỂN KHOẢN QUA ZALO -->
+    <div id="paymentZaloModal" class="fixed inset-0 z-50 bg-slate-950/55 backdrop-blur-sm hidden flex items-center justify-center p-4" onclick="closePaymentZaloModal()">
+        <div class="bg-white border border-slate-200 w-full max-w-sm rounded-3xl p-5 relative text-center space-y-4 shadow-2xl" onclick="event.stopPropagation()">
+            <button onclick="closePaymentZaloModal()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-800 p-1" aria-label="Đóng">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl mx-auto flex items-center justify-center text-2xl border border-blue-100 shadow-sm">
+                <i class="fa-solid fa-comment-dots"></i>
+            </div>
+
+            <div>
+                <h3 class="text-base font-extrabold text-slate-900">Đã chuyển khoản?</h3>
+                <p class="text-xs text-slate-500 mt-1 leading-relaxed">Bấm vào tài khoản Zalo bên dưới để mở Zalo và nhắn xác nhận đơn hàng.</p>
+            </div>
+
+            <button onclick="openZaloApp()" class="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white rounded-2xl shadow-lg transition">
+                <span class="block text-sm font-black">LE ANH DUONG</span>
+                <span class="block text-xs font-bold text-blue-100 mt-0.5">0393356100 · Bấm để mở Zalo</span>
+            </button>
+
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="copyZaloNumber()" class="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+                    <i class="fa-regular fa-copy"></i> Copy số Zalo
+                </button>
+                <button onclick="copyZaloLink()" class="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-link"></i> Copy link Zalo
+                </button>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+                <img id="zaloQrImg" alt="QR Zalo LE ANH DUONG" class="w-36 h-36 mx-auto rounded-xl bg-white border border-slate-200 p-1" />
+                <p class="text-[11px] text-slate-500 mt-2">Quét QR bằng camera hoặc Zalo để mở <span class="font-bold text-blue-600">zalo.me/0393356100</span></p>
+            </div>
+
+            <div class="rounded-xl bg-amber-50 border border-amber-200 p-2.5 text-left text-[11px] text-amber-800 leading-relaxed">
+                Khi nhắn Zalo, hãy gửi kèm <b>mã đơn</b>, <b>Gmail</b> và ảnh giao dịch để xử lý nhanh hơn.
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL CSKH -->
     <div id="cskhModal" class="fixed inset-0 z-50 backdrop-blur-custom hidden flex items-center justify-center p-4">
         <div class="bg-white border border-slate-200 w-full max-w-xs rounded-2xl p-5 relative text-center space-y-4 shadow-2xl">
@@ -569,7 +610,16 @@
 
     <!-- JAVASCRIPT LOGIC INTEGRATED -->
     <script>
-        const GOOGLE_SHEET_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+        // Google Apps Script Web App trả JSON giá/sản phẩm từ Google Sheet.
+        // Dán URL /exec sau khi Deploy Apps Script. Để trống nếu chưa dùng.
+        const GOOGLE_SHEET_PRODUCTS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+        const SHEET_SYNC_INTERVAL_MS = 30000; // tự cập nhật mỗi 30 giây
+
+        const ZALO_CONFIG = {
+            name: 'LE ANH DUONG',
+            phone: '0393356100',
+            webUrl: 'https://zalo.me/0393356100'
+        };
 
         // CẤU HÌNH NGÂN HÀNG TPBANK CỦA LE ANH DUONG
         const BANK_CONFIG = {
@@ -665,6 +715,13 @@
             startLiveOrderTicker();
             const savedEmail = localStorage.getItem('mxh_user_email');
             if (savedEmail) document.getElementById('targetEmail').value = savedEmail;
+
+            // Đồng bộ giá ngay khi mở web, sau đó kiểm tra định kỳ.
+            syncProductsFromGoogleSheet();
+            setInterval(syncProductsFromGoogleSheet, SHEET_SYNC_INTERVAL_MS);
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) syncProductsFromGoogleSheet();
+            });
         });
 
         // SEARCH HANDLERS
@@ -895,7 +952,7 @@
                     <div class="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between">
                         <div>
                             <span class="text-[9px] text-slate-400 block font-medium">Giá chỉ</span>
-                            <span class="text-xs sm:text-sm font-black text-orange-600">${formatVND(item.plans[0].price)}</span>
+                            <span class="text-xs sm:text-sm font-black text-orange-600">${formatVND((item.plans.find(p => p.active !== false) || item.plans[0]).price)}</span>
                         </div>
                         <button onclick="event.stopPropagation(); quickBuy('${item.id}')" class="px-3 py-1.5 bg-[#0f172a] hover:bg-orange-600 text-white text-[11px] font-bold rounded-xl transition">Mua</button>
                     </div>
@@ -940,11 +997,11 @@
             document.getElementById('detailIcon').className = `w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-sm ${currentProduct.iconBg}`;
             document.getElementById('detailIcon').innerHTML = currentProduct.icon;
 
-            selectedPlan = currentProduct.plans.find(p => p.isPopular) || currentProduct.plans[0];
+            selectedPlan = currentProduct.plans.find(p => p.active !== false && p.isPopular) || currentProduct.plans.find(p => p.active !== false) || currentProduct.plans[0];
             const plansContainer = document.getElementById('plansContainer');
             plansContainer.innerHTML = '';
 
-            currentProduct.plans.forEach(plan => {
+            currentProduct.plans.filter(plan => plan.active !== false).forEach(plan => {
                 const isSelected = selectedPlan.id === plan.id;
                 const planCard = document.createElement('div');
                 planCard.className = `p-3.5 rounded-xl border cursor-pointer transition-all relative ${isSelected ? 'bg-orange-50/60 border-orange-500' : 'bg-slate-50 border-slate-200'}`;
@@ -1001,52 +1058,123 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        async function simulatePaymentSuccess() {
-            const emailInput = document.getElementById('targetEmail').value.trim();
-            showToast("Xác nhận thanh toán thành công! Đang lưu thông tin...");
+        function openPaymentZaloModal() {
+            const modal = document.getElementById('paymentZaloModal');
+            const qr = document.getElementById('zaloQrImg');
+            qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=10&data=${encodeURIComponent(ZALO_CONFIG.webUrl)}`;
+            modal.classList.remove('hidden');
+        }
 
-            const orderData = {
-                orderCode: currentTransferCode.toUpperCase(),
-                email: emailInput,
-                productName: currentProduct.title,
-                planName: selectedPlan.name,
-                amount: rawPriceAmount,
-                deliveryType: currentProduct.deliveryType
+        function closePaymentZaloModal() {
+            document.getElementById('paymentZaloModal').classList.add('hidden');
+        }
+
+        function copyZaloNumber() {
+            copyText(ZALO_CONFIG.phone, 'số Zalo');
+        }
+
+        function copyZaloLink() {
+            copyText(ZALO_CONFIG.webUrl, 'link Zalo');
+        }
+
+        function openZaloApp() {
+            // Thử mở ứng dụng Zalo trước; nếu thiết bị không hỗ trợ protocol thì fallback sang zalo.me.
+            const deepLink = `zalo://conversation?phone=${encodeURIComponent(ZALO_CONFIG.phone)}`;
+            let fallbackTimer = null;
+            const cancelFallback = () => {
+                if (document.hidden && fallbackTimer) {
+                    clearTimeout(fallbackTimer);
+                    fallbackTimer = null;
+                }
             };
 
-            try {
-                if (GOOGLE_SHEET_SCRIPT_URL && !GOOGLE_SHEET_SCRIPT_URL.includes('YOUR_GOOGLE_APPS')) {
-                    fetch(GOOGLE_SHEET_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(orderData)
-                    });
+            document.addEventListener('visibilitychange', cancelFallback, { once: true });
+            window.location.href = deepLink;
+            fallbackTimer = setTimeout(() => {
+                window.location.href = ZALO_CONFIG.webUrl;
+            }, 1200);
+        }
+
+        function normalizeSheetProducts(payload) {
+            if (!payload) return [];
+            if (Array.isArray(payload)) return payload;
+            if (Array.isArray(payload.products)) return payload.products;
+            return [];
+        }
+
+        function mergeSheetProducts(rows) {
+            // Schema mỗi dòng: product_id, plan_id, price, old_price, stock, active
+            // Chỉ ghi đè dữ liệu được khai báo trong Sheet, giữ nguyên title/icon/feature trong HTML.
+            let changed = false;
+            rows.forEach(row => {
+                const productId = String(row.product_id || row.productId || '').trim();
+                const planId = String(row.plan_id || row.planId || '').trim();
+                if (!productId) return;
+
+                const product = PRODUCTS.find(p => p.id === productId);
+                if (!product) return;
+
+                if (row.stock !== undefined && row.stock !== '') {
+                    const stock = Number(row.stock);
+                    if (Number.isFinite(stock) && product.stock !== stock) {
+                        product.stock = stock;
+                        changed = true;
+                    }
                 }
-            } catch (err) { console.log(err); }
 
-            document.getElementById('paymentPage').classList.add('hidden');
-            document.getElementById('successPage').classList.remove('hidden');
+                if (planId) {
+                    const plan = product.plans.find(pl => pl.id === planId);
+                    if (!plan) return;
 
-            document.getElementById('successOrderCode').innerText = orderData.orderCode;
-            document.getElementById('successEmail').innerText = orderData.email;
-            document.getElementById('successPlan').innerText = `${orderData.productName} (${orderData.planName})`;
+                    const price = Number(row.price);
+                    if (Number.isFinite(price) && price >= 0 && plan.price !== price) {
+                        plan.price = price;
+                        changed = true;
+                    }
 
-            const manualBox = document.getElementById('manualDeliveryBox');
-            const autoBox = document.getElementById('autoDeliveryBox');
+                    if (row.old_price !== undefined && row.old_price !== '') {
+                        const oldPrice = Number(row.old_price);
+                        if (Number.isFinite(oldPrice) && oldPrice >= 0 && plan.oldPrice !== oldPrice) {
+                            plan.oldPrice = oldPrice;
+                            changed = true;
+                        }
+                    }
 
-            if (currentProduct.deliveryType === 'MANUAL') {
-                manualBox.classList.remove('hidden');
-                autoBox.classList.add('hidden');
-                const prefilledText = encodeURIComponent(`Chào AnhDuongShop, tôi đã thanh toán đơn ${orderData.orderCode} cho Gmail ${orderData.email} (${orderData.productName}). Hỗ trợ nâng cấp giúp tôi!`);
-                document.getElementById('zaloActionBtn').href = `https://zalo.me/0393356100?text=${prefilledText}`;
-            } else {
-                manualBox.classList.add('hidden');
-                autoBox.classList.remove('hidden');
-                document.getElementById('autoAccountContent').innerText = currentProduct.autoAccount || 'Liên hệ Zalo để nhận thông tin';
+                    if (row.active !== undefined && row.active !== '') {
+                        const active = !['0', 'false', 'off', 'no'].includes(String(row.active).toLowerCase());
+                        plan.active = active;
+                    }
+                }
+            });
+            return changed;
+        }
+
+        async function syncProductsFromGoogleSheet() {
+            if (!GOOGLE_SHEET_PRODUCTS_URL || GOOGLE_SHEET_PRODUCTS_URL.includes('YOUR_GOOGLE_APPS')) return;
+
+            try {
+                const url = `${GOOGLE_SHEET_PRODUCTS_URL}${GOOGLE_SHEET_PRODUCTS_URL.includes('?') ? '&' : '?'}_=${Date.now()}`;
+                const res = await fetch(url, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+                const payload = await res.json();
+                const rows = normalizeSheetProducts(payload);
+                const changed = mergeSheetProducts(rows);
+
+                if (changed) {
+                    if (activePage === 'catalog') renderCatalog(PRODUCTS);
+                    if (activePage === 'detail' && currentProduct) openProductDetail(currentProduct.id);
+                    if (activePage === 'payment' && selectedPlan) {
+                        rawPriceAmount = selectedPlan.price;
+                        document.getElementById('displayAmount').innerText = formatVND(rawPriceAmount);
+                        const qrUrl = `https://img.vietqr.io/image/${BANK_CONFIG.bankCode}-${BANK_CONFIG.accountNo}-compact2.png?amount=${rawPriceAmount}&addInfo=${currentTransferCode}&accountName=${encodeURIComponent(BANK_CONFIG.accountOwner)}`;
+                        document.getElementById('vietQrImg').src = qrUrl;
+                    }
+                    console.info('[Google Sheet] Giá/sản phẩm đã được cập nhật.');
+                }
+            } catch (err) {
+                console.warn('[Google Sheet] Không đồng bộ được:', err);
             }
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function launchBankApp(bankKey) {
